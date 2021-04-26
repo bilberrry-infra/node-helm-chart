@@ -1,0 +1,16 @@
+apiVersion: v1
+name: node
+
+description: Helm chart for Node.js applications
+version: 1.0.0
+keywords:
+  - node
+  - nodejs
+  - helm
+
+maintainers:
+  - name: Bilberrry
+    email: alex@bilberrry.com
+
+sources:
+  - https://github.com/bilberrry/node-helm-chart

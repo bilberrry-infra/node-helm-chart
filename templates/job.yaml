@@ -1,0 +1,33 @@
+{{ if .Values.initJob }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Chart.Name }}-job-{{ .Release.Revision }}
+  labels:
+    app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-job
+        release: {{ .Release.Name }}
+        date: "{{ now | unixEpoch }}"
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-job
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
+
+          command: ["/bin/sh","-c"]
+          args: {{ .Values.initJob }}
+
+          env:
+{{ toYaml .Values.env | indent 12 }}
+          envFrom:
+{{ toYaml .Values.envFrom | indent 12 }}
+
+      restartPolicy: Never
+{{end}}
