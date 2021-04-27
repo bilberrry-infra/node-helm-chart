@@ -19,7 +19,7 @@ spec:
       annotations:
 {{ toYaml .Values.podAnnotations | indent 8 }}
     spec:
-      {{ if .Values.app.initJob }}
+      {{ if .Values.initJob }}
       initContainers:
       - name: {{ .Chart.Name }}-init
         image: "groundnuty/k8s-wait-for:1.3"
