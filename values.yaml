@@ -10,6 +10,8 @@ podAnnotations: {}
 extraVolumes: []
 extraVolumeMounts: []
 
+initJob: false
+
 env: []
   # - name: VARIABLE
   #   value: value
