@@ -21,8 +21,9 @@ envFrom: []
   #     name: secret-name
 
 livenessProbe:
-  enabled: true
-  path: '/'
+  httpGet:
+    path: /health
+    port: 3000
   initialDelaySeconds: 60
   periodSeconds: 10
   timeoutSeconds: 5
@@ -30,8 +31,9 @@ livenessProbe:
   successThreshold: 1
 
 readinessProbe:
-  enabled: true
-  path: '/'
+  httpGet:
+    path: /health
+    port: 3000
   initialDelaySeconds: 10
   periodSeconds: 5
   timeoutSeconds: 3
