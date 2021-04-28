@@ -2,7 +2,7 @@ apiVersion: v1
 name: node
 
 description: Helm chart for Node.js applications
-version: 1.0.6
+version: 1.0.7
 keywords:
   - node
   - nodejs
