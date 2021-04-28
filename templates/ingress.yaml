@@ -1,6 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 
 {{- $serviceName := .Release.Name -}}
+{{- $servicePort := .Values.service.targetPort -}}
 
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
@@ -20,7 +21,7 @@ spec:
         - path: {{ default "/" .path }}
           backend:
             serviceName: {{ $serviceName }}
-            servicePort: {{ .Values.service.targetPort }}
+            servicePort: {{ $servicePort }}
   {{- end}}
   tls:
 {{ toYaml .Values.ingress.tls | indent 4 }}
