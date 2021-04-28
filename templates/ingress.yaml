@@ -1,12 +1,12 @@
 {{- if .Values.ingress.enabled -}}
 
-{{- $serviceName := .Release.Name -}}
+{{- $serviceName := include "utils.fullname" . -}}
 {{- $servicePort := .Values.service.targetPort -}}
 
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name | trimSuffix "-" }}
+  name: {{ template "utils.fullname" . }}
   labels:
     app: {{ .Chart.Name }}
     release: {{ .Release.Name }}

@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Release.Name }}-job-{{ .Release.Revision }}
+  name: {{ template "utils.fullname" . }}-job-{{ .Release.Revision }}
   labels:
     app: {{ .Chart.Name }}
     release: {{ .Release.Name }}
@@ -12,12 +12,12 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-job
+        app: {{ template "utils.fullname" . }}-job
         release: {{ .Release.Name }}
         date: "{{ now | unixEpoch }}"
     spec:
       containers:
-        - name: {{ .Release.Name }}-job
+        - name: {{ template "utils.fullname" . }}-job
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
 

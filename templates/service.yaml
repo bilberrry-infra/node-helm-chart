@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name | trimSuffix "-" }}
+  name: {{ template "utils.fullname" . }}
   labels:
     app: {{ .Chart.Name }}
     release: {{ .Release.Name }}
@@ -11,7 +11,7 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      name: {{ .Release.Name | trimSuffix "-" }}
+      name: {{ template "utils.fullname" . }}
   selector:
     app: {{ .Chart.Name }}
     release: {{ .Release.Name }}
