@@ -22,7 +22,7 @@ envFrom: []
 
 livenessProbe:
   httpGet:
-    path: /health
+    path: /
     port: 3000
   initialDelaySeconds: 60
   periodSeconds: 10
@@ -32,7 +32,7 @@ livenessProbe:
 
 readinessProbe:
   httpGet:
-    path: /health
+    path: /
     port: 3000
   initialDelaySeconds: 10
   periodSeconds: 5
