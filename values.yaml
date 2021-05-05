@@ -11,6 +11,7 @@ extraVolumes: []
 extraVolumeMounts: []
 
 initJob: false
+imagePullSecrets: false
 
 env: []
   # - name: VARIABLE

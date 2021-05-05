@@ -29,6 +29,11 @@ spec:
           - {{ template "utils.fullname" . }}-job-{{ .Release.Revision }}
       {{end}}
 
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets }}
+      {{- end }}
+
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
