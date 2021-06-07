@@ -21,6 +21,9 @@ envFrom: []
   # - secretRef:
   #     name: secret-name
 
+livenessProbeEnabled: true
+readinessProbeEnabled: true
+
 livenessProbe:
   httpGet:
     path: /

@@ -44,10 +44,14 @@ spec:
           envFrom:
 {{ toYaml .Values.envFrom | indent 12 }}
 
+          {{- if .Values.readinessProbeEnabled }}
           readinessProbe:
 {{ toYaml .Values.readinessProbe | indent 12 }}
+          {{- end }}
+          {{- if .Values.livenessProbeEnabled }}
           livenessProbe:
 {{ toYaml .Values.livenessProbe | indent 12 }}
+          {{- end }}
 
           ports:
             - name: http
