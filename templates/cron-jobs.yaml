@@ -1,0 +1,16 @@
+{{- if .Values.cronJobs }}
+  {{- range .Values.cronJobs }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .name }}
+spec:
+  schedule: {{ .schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers: {{ toYaml .containers | nindent 10 }}
+          restartPolicy: {{ .restartPolicy }}
+  {{- end }}
+{{ end }}
