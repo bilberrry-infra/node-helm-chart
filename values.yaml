@@ -81,3 +81,16 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+cronJobs: []
+  # - schedule: "* * * * *"
+  #   name: hello
+  #   restartPolicy: OnFailure
+  #   containers:
+  #   - name: hello
+  #     image: busybox:1.28
+  #     imagePullPolicy: IfNotPresent
+  #     command:
+  #     - /bin/sh
+  #     - -c
+  #     - date; echo Hello from the Kubernetes cluster
