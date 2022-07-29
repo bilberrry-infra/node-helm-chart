@@ -8,7 +8,16 @@ image:
 podAnnotations: {}
 
 extraVolumes: []
+  # - name: volume1
+  #   emptyDir: {}
+  # - name: volume2
+  #   emptyDir: {}
+
 extraVolumeMounts: []
+  # - mountPath: /vol1
+  #   name: volume1
+  # - mountPath: /vol2
+  #   name: volume2
 
 initJob: false
 imagePullSecrets: false
@@ -20,9 +29,6 @@ env: []
 envFrom: []
   # - secretRef:
   #     name: secret-name
-
-livenessProbeEnabled: true
-readinessProbeEnabled: true
 
 livenessProbe:
   httpGet:
