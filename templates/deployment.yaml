@@ -16,8 +16,10 @@ spec:
       labels:
         app: {{ .Chart.Name }}
         release: {{ .Release.Name }}
+      {{ if .Values.podAnnotations }}
       annotations:
 {{ toYaml .Values.podAnnotations | indent 8 }}
+      {{end}}
     spec:
       {{ if .Values.initJob }}
       initContainers:
@@ -28,49 +30,54 @@ spec:
           - job
           - {{ template "utils.fullname" . }}-job-{{ .Release.Revision }}
       {{end}}
-
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
         - name: {{ .Values.imagePullSecrets }}
       {{- end }}
-
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ default "IfNotPresent" .Values.image.pullPolicy | quote }}
-
+          {{- if .Values.env }}
           env:
 {{ toYaml .Values.env | indent 12 }}
+          {{- end }}
+          {{- if .Values.envFrom }}
           envFrom:
 {{ toYaml .Values.envFrom | indent 12 }}
-
-          {{- if .Values.readinessProbeEnabled }}
+          {{- end }}
+          {{- if .Values.extraVolumeMounts }}
+          volumeMounts:
+{{ toYaml .Values.extraVolumeMounts | indent 12 }}
+          {{- end }}
+          {{- if .Values.readinessProbe }}
           readinessProbe:
 {{ toYaml .Values.readinessProbe | indent 12 }}
           {{- end }}
-          {{- if .Values.livenessProbeEnabled }}
+          {{- if .Values.livenessProbe }}
           livenessProbe:
 {{ toYaml .Values.livenessProbe | indent 12 }}
           {{- end }}
-
           ports:
             - name: http
               containerPort: {{ default 3000 .Values.service.targetPort }}
               protocol: TCP
-
+          {{- if .Values.resources }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
-
+          {{- end }}
+    {{- if .Values.extraVolumes }}
+      volumes:
+{{ toYaml .Values.extraVolumes | indent 8 }}
+    {{- end }}
     {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
     {{- end }}
-
     {{- if .Values.affinity }}
       affinity:
 {{ toYaml .Values.affinity | indent 8 }}
     {{- end }}
-
     {{- if .Values.tolerations }}
       tolerations:
 {{ toYaml .Values.tolerations | indent 8 }}
