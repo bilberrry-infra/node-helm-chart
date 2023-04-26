@@ -1,0 +1,11 @@
+{{ if .Values.configmapValues }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "utils.fullname" . }}-configmap
+  labels:
+    app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+data:
+{{ toYaml .Values.configmapValues | indent 4 }}
+{{end}}

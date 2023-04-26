@@ -31,6 +31,9 @@ envFrom:
   - secretRef:
       name: secret-name
 
+configmapValues:
+  test: test
+
 livenessProbe:
   httpGet:
     path: /
