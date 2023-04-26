@@ -92,11 +92,20 @@ cronJobs: []
   # - schedule: "* * * * *"
   #   name: hello
   #   restartPolicy: OnFailure
-  #   containers:
-  #   - name: hello
-  #     image: busybox:1.28
-  #     imagePullPolicy: IfNotPresent
-  #     command:
-  #     - /bin/sh
-  #     - -c
-  #     - date; echo Hello from the Kubernetes cluster
+  #   image:
+  #     repository: busybox
+  #     tag: latest
+  #     imagePullPolicy: Always
+  #   env:
+  #   - name: ECHO_VAR
+  #     value: "busybox"
+  #   envFrom:
+  #   - secretRef:
+  #       name: secret_data
+  #   - configMapRef:
+  #       name: config_data
+  #   schedule: "* * * * *"
+  #   command: ["/bin/sh"]
+  #   args:
+  #     - "-c"
+  #     - "echo $(date) - hello from $ECHO_VAR"
