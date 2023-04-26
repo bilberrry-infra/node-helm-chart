@@ -3,10 +3,10 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: "{{ template "utils.fullname" . }}-{{ $job.name }}"
+  name: {{ template "utils.fullname" $ }}-{{ $job.name }}
   labels:
-    app: {{ .Chart.Name }}
-    release: {{ .Release.Name }}
+    app: {{ $.Chart.Name }}
+    release: {{ $.Release.Name }}
 spec:
   concurrencyPolicy: {{ $job.concurrencyPolicy }}
   failedJobsHistoryLimit: {{ $job.failedJobsHistoryLimit }}
@@ -15,7 +15,7 @@ spec:
       template:
         metadata:
           labels:
-            app: {{ template "utils.fullname" . }}
+            app: {{ template "utils.fullname" $ }}
             cron: {{ $job.name }}
         spec:
         {{- if hasKey $job "serviceAccount" }}
@@ -38,8 +38,8 @@ spec:
           {{- end }}
         {{- end }}
           containers:
-          - image: "{{ $job.image.repository }}:{{ $job.image.tag }}"
-            imagePullPolicy: {{ $job.image.imagePullPolicy }}
+          - image: {{ $job.image }}
+            imagePullPolicy: {{ $job.imagePullPolicy }}
             name: {{ $job.name }}
             {{- with $job.env }}
             env:
