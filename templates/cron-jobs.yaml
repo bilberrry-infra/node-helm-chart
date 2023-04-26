@@ -38,8 +38,8 @@ spec:
           {{- end }}
         {{- end }}
           containers:
-          - image: {{ $job.image }}
-            imagePullPolicy: {{ $job.imagePullPolicy }}
+          - image: "{{ $job.image.repository }}:{{ $job.image.tag }}"
+            imagePullPolicy: {{ $job.image.imagePullPolicy }}
             name: {{ $job.name }}
             {{- with $job.env }}
             env:
